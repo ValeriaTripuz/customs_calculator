@@ -22,20 +22,6 @@ form input[type="number"] {
   border: 0.5px solid rgba(0, 0, 0, 0.625);
 }
 
-form input[type="radio"]::before {
-  content: "";
-  width: 0.65em;
-  height: 0.65em;
-  border-radius: 50%;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em red;
-}
-
-form input[type="radio"]:checked::before {
-  transform: scale(1);
-}
-
 .result {
   position: relative;
   top: 10rem;
@@ -50,4 +36,14 @@ form input[type="radio"]:checked::before {
   color: white;
   border: none;
   border-radius: 3px;
+}
+
+@media screen and (max-width: 900px) {
+  form input[type="number"] {
+    width: 90%;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 0.5px solid rgba(0, 0, 0, 0.625);
+  }
 }
