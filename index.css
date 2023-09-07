@@ -1,0 +1,21 @@
+.main-body {
+  position: relative;
+  border: 2px solid black;
+  top: 10vh;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2rem;
+  width: 70%;
+}
+
+form {
+  width: 80%;
+  background-color: rgb(241, 240, 240);
+  margin: 0 auto;
+}
+
+.result {
+  position: relative;
+  top: 10rem;
+  margin: 0 auto;
+}
