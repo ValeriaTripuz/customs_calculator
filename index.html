@@ -14,20 +14,45 @@
         <input type="number" placeholder="Стоимость авто в евро" id="price" />
         <br /><br />
         <div class="container">
-          <input type="radio" name="first" value="fuel" checked />Топливо
-          <input type="radio" name="first" value="electro" />Электро
+          <input
+            type="radio"
+            name="first"
+            value="fuel"
+            onchange="handleChange(this);"
+            checked
+          />Топливо
+          <input
+            type="radio"
+            name="first"
+            value="electro"
+            onchange="handleChange(this);"
+          />Электро
         </div>
         <br /><br />
-        <div class="container">
-          <input type="radio" name="second" checked value="person" />Физ лицо
-          <input type="radio" name="second" value="entity" />Юр лицо
+        <div id="container" style="display: block">
+          <div class="container">
+            <input type="radio" name="second" checked value="person" />Физ лицо
+            <input type="radio" name="second" value="entity" />Юр лицо
+          </div>
+          <br /><br />
+          <input type="number" placeholder="Объем двигателя" id="capacity" />
+          <br /><br />
+          <div class="container">
+            <input type="radio" name="third" checked value="petrol" />Бензин
+            <input type="radio" name="third" value="disel" />Дизель
+          </div>
         </div>
-        <br /><br />
-        <input type="number" placeholder="Объем двигателя" id="capacity" />
-        <br /><br />
+        <div id="container2" style="display: none">
+          <input type="checkbox" name="fifth" value="buy" checked />Продажа до 3
+          лет
+        </div>
         <div class="container">
-          <input type="radio" name="third" checked value="petrol" />Бензин
-          <input type="radio" name="third" value="disel" />Дизель
+          <input
+            type="checkbox"
+            name="forth"
+            value="benefit"
+            checked
+          />Таможенная льгота 50%
         </div>
 
         <button type="submit" id="btn">Enter</button>
