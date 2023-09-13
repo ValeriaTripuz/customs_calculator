@@ -42,6 +42,7 @@ btn.addEventListener("click", (e) => {
   }
 
   checkFunc(age.value, price.value, capacity.value, personV, engineV, typeV);
+  formulaUtil(age.value, engineV);
 });
 
 function checkFunc(age, price, capacity, person, engine, type) {
@@ -202,6 +203,17 @@ function formula(cap, euro) {
     res.innerHTML = (cap * euro) / 2;
   } else {
     res.innerHTML = cap * euro;
+  }
+}
+
+function formulaUtil(age, type) {
+  let sbor = document.getElementById("sbor");
+  if (age < 3) {
+    sbor.innerHTML = 544.5;
+  } else if (age >= 3 && age <= 7) {
+    sbor.innerHTML = 816.7;
+  } else if (age > 7) {
+    type === "electro" ? (sbor.innerHTML = 816.7) : (sbor.innerHTML = 1225.1);
   }
 }
 
