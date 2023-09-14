@@ -40,9 +40,7 @@ btn.addEventListener("click", (e) => {
   for (const t of type) {
     if (t.checked) typeV = t.value;
   }
-
-  checkFunc(age.value, price.value, capacity.value, personV, engineV, typeV);
-  formulaUtil(age.value, engineV);
+  validation(age.value, price.value, capacity.value, personV, engineV, typeV);
 });
 
 function checkFunc(age, price, capacity, person, engine, type) {
@@ -243,5 +241,17 @@ function formula3(price, capacity, res2, perc, euro) {
     formula2(res1);
   } else {
     formula(capacity, euro);
+  }
+}
+
+function validation(age, price, capacity, person, engine, type) {
+  const err = document.querySelector(".error");
+  if (age == "" || price == "" || capacity == "") {
+    err.style.display = "block";
+    return false;
+  } else {
+    err.style.display = "none";
+    checkFunc(age, price, capacity, person, engine, type);
+    formulaUtil(age, engine);
   }
 }

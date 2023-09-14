@@ -3,8 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./index.css" />
+    <!-- <link rel="stylesheet" href="./index.css" /> -->
     <title>Calc</title>
+    <style type="text/css">
+      .main-body {
+        position: relative;
+        border: 2px solid rgba(0, 0, 0, 0.409);
+        top: 10vh;
+        margin: 0 auto;
+        text-align: center;
+        padding: 2rem;
+        width: 70%;
+      }
+
+      form {
+        width: 100%;
+        background-color: rgba(241, 240, 240, 0.821);
+        margin: 0 auto;
+      }
+
+      form input[type="number"] {
+        width: 70%;
+        padding: 5px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: 0.5px solid rgba(0, 0, 0, 0.625);
+      }
+
+      .result {
+        position: relative;
+        top: 10rem;
+        margin: 0 auto;
+      }
+
+      #btn {
+        padding: 5px;
+        width: 15vh;
+        margin: 1rem auto;
+        background-color: rgba(0, 0, 0, 0.588);
+        color: white;
+        border: none;
+        border-radius: 3px;
+      }
+
+      @media screen and (max-width: 900px) {
+        form input[type="number"] {
+          width: 90%;
+          padding: 5px;
+          font-size: 18px;
+          border-radius: 5px;
+          border: 0.5px solid rgba(0, 0, 0, 0.625);
+        }
+      }
+
+      .error {
+        color: red;
+        border: 3px solid red;
+        border-radius: 5px;
+        width: 80%;
+        margin: 1rem auto;
+        padding: 0.5rem;
+        font-size: 1.3rem;
+        background-color: white;
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div class="main-body">
@@ -54,7 +117,7 @@
             checked
           />Таможенная льгота 50%
         </div>
-
+        <div class="error">Все поля должны быть заполнены!</div>
         <button type="submit" id="btn">Enter</button>
       </form>
     </div>
