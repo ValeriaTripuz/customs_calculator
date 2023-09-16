@@ -8,18 +8,25 @@
     <style type="text/css">
       .main-body {
         position: relative;
-        border: 2px solid rgba(0, 0, 0, 0.409);
+        background-color: rgba(0, 0, 0, 0.844);
+        border-radius: 10px;
+        color: white;
         top: 10vh;
         margin: 0 auto;
+        margin-bottom: 9rem;
         text-align: center;
         padding: 2rem;
         width: 70%;
+        box-shadow: 7px 5px 10px rgba(139, 192, 226);
       }
 
       form {
+        position: relative;
         width: 100%;
-        background-color: rgba(241, 240, 240, 0.821);
         margin: 0 auto;
+        font-weight: 400;
+        font-family: Roboto;
+        letter-spacing: 0.5px;
       }
 
       form input[type="number"] {
@@ -27,53 +34,86 @@
         padding: 5px;
         font-size: 18px;
         border-radius: 5px;
-        border: 0.5px solid rgba(0, 0, 0, 0.625);
+        border: 2px solid rgba(139, 192, 226);
       }
 
       .result {
         position: relative;
-        top: 10rem;
+        width: 50%;
         margin: 0 auto;
       }
 
       #btn {
-        padding: 5px;
-        width: 15vh;
+        width: 25vh;
         margin: 1rem auto;
-        background-color: rgba(0, 0, 0, 0.588);
+        background-color: rgba(139, 192, 226);
         color: white;
         border: none;
         border-radius: 3px;
       }
 
-      @media screen and (max-width: 900px) {
+      @media screen and (max-width: 768px) {
+        .main-body {
+          width: 100%;
+          padding: 1.5rem;
+        }
         form input[type="number"] {
-          width: 90%;
+          width: 100%;
           padding: 5px;
-          font-size: 18px;
-          border-radius: 5px;
-          border: 0.5px solid rgba(0, 0, 0, 0.625);
+          font-size: 10px;
+        }
+        .container label {
+          font-size: 11px;
+        }
+
+        .result {
+          font-size: 10px;
         }
       }
 
       .error {
         color: red;
-        border: 3px solid red;
+        border: 1px solid red;
+        font-weight: 200;
         border-radius: 5px;
-        width: 80%;
+        width: 70%;
         margin: 1rem auto;
-        padding: 0.5rem;
-        font-size: 1.3rem;
-        background-color: white;
+        padding: 0.2rem;
+        font-size: 0.9rem;
         display: none;
+      }
+
+      .labelAge,
+      .labelPrice,
+      .labelCapacity {
+        display: none;
+        color: white;
+        font-size: 1rem;
+        left: 25%;
+        font-weight: 400;
+        font-family: Roboto;
+        letter-spacing: 0.5px;
+        padding: 0.5rem;
+        text-align: left;
+        width: 55vh;
+        margin: 0 auto;
+
+        @media screen and (max-width: 768px) {
+          width: 40vh;
+          font-size: 12px;
+        }
       }
     </style>
   </head>
   <body>
     <div class="main-body">
       <form action="">
-        <input type="number" placeholder="Возраст авто" id="age" />
+        <div>
+          <label for="age" class="labelAge"><b>Возраст авто</b></label>
+          <input type="number" placeholder="Возраст авто" id="age" />
+        </div>
         <br /><br />
+        <label for="price" class="labelPrice">Стоимость авто в €</label>
         <input type="number" placeholder="Стоимость авто в евро" id="price" />
         <br /><br />
         <div class="container">
@@ -83,49 +123,347 @@
             value="fuel"
             onchange="handleChange(this);"
             checked
-          />Топливо
+          />
+          <label for="first">Топливо</label>
           <input
             type="radio"
             name="first"
             value="electro"
             onchange="handleChange(this);"
-          />Электро
+          />
+          <label for="first">Электро</label>
         </div>
         <br /><br />
         <div id="container" style="display: block">
           <div class="container">
-            <input type="radio" name="second" checked value="person" />Физ лицо
-            <input type="radio" name="second" value="entity" />Юр лицо
+            <input type="radio" name="second" checked value="person" />
+            <label for="second">Физ.лицо</label>
+            <input type="radio" name="second" value="entity" />
+            <label for="second">Юр.лицо</label>
           </div>
           <br /><br />
+          <label for="capacity" class="labelCapacity">Объем двигателя</label>
           <input type="number" placeholder="Объем двигателя" id="capacity" />
           <br /><br />
           <div class="container">
-            <input type="radio" name="third" checked value="petrol" />Бензин
-            <input type="radio" name="third" value="disel" />Дизель
+            <input type="radio" name="third" checked value="petrol" />
+            <label for="third">Бензин</label>
+            <input type="radio" name="third" value="disel" />
+            <label for="third">Дизель</label>
           </div>
         </div>
         <div id="container2" style="display: none">
-          <input type="checkbox" name="fifth" value="buy" checked />Продажа до 3
-          лет
+          <input type="checkbox" name="fifth" value="buy" checked />
+          <label for="fifth">Продажа до 3 лет</label>
         </div>
         <div class="container">
-          <input
-            type="checkbox"
-            name="forth"
-            value="benefit"
-            checked
-          />Таможенная льгота 50%
+          <input type="checkbox" name="forth" value="benefit" checked /><label
+            for="forth"
+            >Таможенная льгота 50%</label
+          >
         </div>
         <div class="error">Все поля должны быть заполнены!</div>
-        <button type="submit" id="btn">Enter</button>
+        <button type="submit" id="btn">Рассчитать</button>
       </form>
     </div>
     <div class="result">
-      <h3>Таможенная пошлина: <span id="res"></span></h3>
-      <h3>Утилизационный сбор: <span id="sbor"></span></h3>
+      <h4>Таможенная пошлина: <span id="res"></span><span>€</span></h4>
+      <h4>Утилизационный сбор: <span id="sbor"></span><span>€</span></h4>
+      <h4>Таможенный сбор: <span id="sbor">120 </span><span>руб.</span></h4>
     </div>
 
-    <script src="new.js"></script>
+    <script>
+      const age = document.getElementById("age");
+      const price = document.getElementById("price");
+      const capacity = document.getElementById("capacity");
+      const btn = document.getElementById("btn");
+      const container = document.getElementById("container");
+      const container2 = document.getElementById("container2");
+
+      const engine = document.querySelectorAll('input[name="first"]');
+      const person = document.querySelectorAll('input[name="second"]');
+      const type = document.querySelectorAll('input[name="third"]');
+      const benefit = document.querySelector('input[name="forth"]');
+      const buy = document.querySelector('input[name="fifth"]');
+
+      const labelAge = document.querySelector(".labelAge");
+      const labelPrice = document.querySelector(".labelPrice");
+      const labelCapacity = document.querySelector(".labelCapacity");
+
+      age.addEventListener("focus", () => {
+        labelAge.style.display = "block";
+      });
+      age.addEventListener("blur", () => {
+        labelAge.style.display = "none";
+      });
+
+      price.addEventListener("focus", () => {
+        labelPrice.style.display = "block";
+      });
+      price.addEventListener("blur", () => {
+        labelPrice.style.display = "none";
+      });
+
+      capacity.addEventListener("focus", () => {
+        labelCapacity.style.display = "block";
+      });
+      capacity.addEventListener("blur", () => {
+        labelCapacity.style.display = "none";
+      });
+
+      function handleChange(v) {
+        if (v.value === "electro") {
+          container.style.display = "none";
+          container2.style.display = "block";
+        } else {
+          container.style.display = "block";
+          container2.style.display = "none";
+        }
+      }
+
+      for (var i = 0; i < engine.length; i++) {}
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        let personV = "";
+        let engineV = "";
+        let typeV = "";
+
+        for (const f of engine) {
+          if (f.checked) engineV = f.value;
+        }
+
+        for (const p of person) {
+          if (p.checked) personV = p.value;
+        }
+
+        for (const t of type) {
+          if (t.checked) typeV = t.value;
+        }
+        validation(
+          age.value,
+          price.value,
+          capacity.value,
+          personV,
+          engineV,
+          typeV
+        );
+      });
+
+      function checkFunc(age, price, capacity, person, engine, type) {
+        if (engine === "electro") {
+          let res = document.getElementById("res");
+
+          if (buy.checked) {
+            console.log(price);
+            if (benefit.checked) {
+              res.innerHTML = (price * 7.5) / 100;
+            } else {
+              res.innerHTML = (price * 15) / 100;
+            }
+          } else {
+            formula(0, 0);
+          }
+        } else {
+          container.style.display = "block";
+          switch (person) {
+            case "entity":
+              entityF(age, price, capacity, type);
+              break;
+            case "person":
+              personF(age, price, capacity);
+              break;
+          }
+        }
+      }
+
+      function entityF(age, price, capacity, type) {
+        if (type === "petrol") {
+          if (age < 3) {
+            let res2 = price / capacity;
+            if (capacity <= 1000) {
+              formula3(price, capacity, res2, 30, 1.2);
+            } else if (capacity >= 1001 && capacity <= 1500) {
+              formula3(price, capacity, res2, 30, 1.45);
+            } else if (capacity >= 1501 && capacity <= 1800) {
+              formula3(price, capacity, res2, 30, 1.5);
+            } else if (capacity >= 1801 && capacity <= 2300) {
+              formula3(price, capacity, res2, 30, 2.15);
+            } else if (capacity >= 2301 && capacity <= 3000) {
+              formula3(price, capacity, res2, 30, 1.15);
+            } else if (capacity >= 3001) {
+              formula3(price, capacity, res2, 30, 2.8);
+            }
+          } else if (age >= 3 && age <= 5) {
+            let res2 = price / capacity;
+            if (capacity <= 1000) {
+              formula3(price, capacity, res2, 35, 1.2);
+            } else if (capacity >= 1001 && capacity <= 1500) {
+              formula3(price, capacity, res2, 35, 1.45);
+            } else if (capacity >= 1501 && capacity <= 1800) {
+              formula3(price, capacity, res2, 35, 1.5);
+            } else if (capacity >= 1801 && capacity <= 2300) {
+              formula3(price, capacity, res2, 35, 2.15);
+            } else if (capacity >= 2301 && capacity <= 3000) {
+              formula3(price, capacity, res2, 35, 1.15);
+            } else if (capacity >= 3001) {
+              formula3(price, capacity, res2, 35, 2.8);
+            }
+          } else if (age > 5) {
+            if (capacity <= 1000) {
+              formula(capacity, 2.5);
+            } else if (capacity > 1001 && capacity <= 1500) {
+              formula(capacity, 2.7);
+            } else if (capacity > 1501 && capacity <= 1800) {
+              formula(capacity, 2.9);
+            } else if (capacity > 1801 && capacity <= 2300) {
+              formula(capacity, 4);
+            } else if (capacity > 2301 && capacity <= 3000) {
+              formula(capacity, 4);
+            } else if (capacity > 3001) {
+              formula(capacity, 5.8);
+            }
+          }
+        } else {
+          if (age < 3) {
+            let res2 = price / capacity;
+            if (capacity <= 1500) {
+              formula3(price, capacity, res2, 30, 1.45);
+            } else if (capacity >= 1501 && capacity <= 2500) {
+              formula3(price, capacity, res2, 30, 1.9);
+            } else if (capacity >= 2501) {
+              formula3(price, capacity, res2, 30, 2.8);
+            }
+          } else if (age >= 3 && age <= 5) {
+            let res2 = price / capacity;
+            if (capacity <= 1500) {
+              formula3(price, capacity, res2, 35, 1.45);
+            } else if (capacity >= 1501 && capacity <= 2500) {
+              formula3(price, capacity, res2, 35, 2.15);
+            } else if (capacity >= 2501) {
+              formula3(price, capacity, res2, 35, 2.8);
+            }
+          } else if (age > 5) {
+            if (capacity <= 1500) {
+              formula(capacity, 2.7);
+            } else if (capacity > 1501 && capacity <= 2500) {
+              formula(capacity, 4);
+            } else if (capacity > 2501) {
+              formula(capacity, 5.8);
+            }
+          }
+        }
+      }
+
+      function personF(age, price, capacity) {
+        if (age < 3) {
+          let res2 = price / capacity;
+          if (price <= 8500) {
+            formula3(price, capacity, res2, 54, 2.5);
+          } else if (price >= 8501 && price <= 16700) {
+            formula3(price, capacity, res2, 48, 3.5);
+          } else if (price >= 16701 && price <= 42300) {
+            formula3(price, capacity, res2, 48, 5.5);
+          } else if (price >= 42301 && price <= 84500) {
+            formula3(price, capacity, res2, 48, 7.5);
+          } else if (price >= 84501 && price <= 169000) {
+            formula3(price, capacity, res2, 48, 15);
+          } else if (price >= 169001) {
+            formula3(price, capacity, res2, 48, 20);
+          }
+        } else if (age >= 3 && age <= 5) {
+          if (capacity <= 1000) {
+            formula(capacity, 1.5);
+          } else if (capacity > 1001 && capacity <= 1500) {
+            formula(capacity, 1.7);
+          } else if (capacity > 1501 && capacity <= 1800) {
+            formula(capacity, 2.5);
+          } else if (capacity > 1801 && capacity <= 2300) {
+            formula(capacity, 2.7);
+          } else if (capacity > 2301 && capacity <= 3000) {
+            formula(capacity, 3);
+          } else if (capacity > 3001) {
+            formula(capacity, 3.6);
+          }
+        } else if (age > 5) {
+          if (capacity <= 1000) {
+            formula(capacity, 3);
+          } else if (capacity > 1001 && capacity <= 1500) {
+            formula(capacity, 3.2);
+          } else if (capacity > 1501 && capacity <= 1800) {
+            formula(capacity, 3.5);
+          } else if (capacity > 1801 && capacity <= 2300) {
+            formula(capacity, 4.8);
+          } else if (capacity > 2301 && capacity <= 3000) {
+            formula(capacity, 5);
+          } else if (capacity > 3001) {
+            formula(capacity, 5.7);
+          }
+        }
+      }
+
+      function formula(cap, euro) {
+        let res = document.getElementById("res");
+        if (benefit.checked) {
+          res.innerHTML = (cap * euro) / 2;
+        } else {
+          res.innerHTML = cap * euro;
+        }
+      }
+
+      function formulaUtil(age, type) {
+        let sbor = document.getElementById("sbor");
+        if (age < 3) {
+          sbor.innerHTML = 544.5;
+        } else if (age >= 3 && age <= 7) {
+          sbor.innerHTML = 816.7;
+        } else if (age > 7) {
+          type === "electro"
+            ? (sbor.innerHTML = 816.7)
+            : (sbor.innerHTML = 1225.1);
+        }
+      }
+
+      function formula2(res1) {
+        let res = document.getElementById("res");
+        if (benefit.checked) {
+          res.innerHTML = res1 / 2;
+        } else {
+          res.innerHTML = res1;
+        }
+      }
+
+      function formula4(res2, capacity) {
+        let res = document.getElementById("res");
+        if (benefit.checked) {
+          res.innerHTML = (res2 * capacity) / 2;
+        } else {
+          res.innerHTML = res2 * capacity;
+        }
+      }
+
+      function formula3(price, capacity, res2, perc, euro) {
+        let res1 = (price / 100) * perc;
+        console.log(res1 / capacity, res2);
+        let res3 = res1 / capacity;
+        if (res3 > euro) {
+          formula2(res1);
+        } else {
+          formula(capacity, euro);
+        }
+      }
+
+      function validation(age, price, capacity, person, engine, type) {
+        const err = document.querySelector(".error");
+        if (age == "" || price == "" || capacity == "") {
+          err.style.display = "block";
+          return false;
+        } else {
+          err.style.display = "none";
+          checkFunc(age, price, capacity, person, engine, type);
+          formulaUtil(age, engine);
+        }
+      }
+    </script>
   </body>
 </html>
