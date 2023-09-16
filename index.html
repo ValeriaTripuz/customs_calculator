@@ -41,6 +41,7 @@
         position: relative;
         width: 50%;
         margin: 0 auto;
+        display: none;
       }
 
       #btn {
@@ -404,6 +405,7 @@
 
       function formula(cap, euro) {
         let res = document.getElementById("res");
+        displayResults();
         if (benefit.checked) {
           res.innerHTML = (cap * euro) / 2;
         } else {
@@ -426,6 +428,7 @@
 
       function formula2(res1) {
         let res = document.getElementById("res");
+        displayResults();
         if (benefit.checked) {
           res.innerHTML = res1 / 2;
         } else {
@@ -435,6 +438,7 @@
 
       function formula4(res2, capacity) {
         let res = document.getElementById("res");
+        displayResults();
         if (benefit.checked) {
           res.innerHTML = (res2 * capacity) / 2;
         } else {
@@ -463,6 +467,11 @@
           checkFunc(age, price, capacity, person, engine, type);
           formulaUtil(age, engine);
         }
+      }
+
+      function displayResults() {
+        const results = document.querySelector(".result");
+        results.style.display = "block";
       }
     </script>
   </body>
