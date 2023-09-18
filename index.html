@@ -45,12 +45,22 @@
       }
 
       #btn {
-        width: 25vh;
-        margin: 1rem auto;
+        width: 28vh;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
         background-color: rgba(139, 192, 226);
         color: white;
         border: none;
         border-radius: 3px;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+      }
+
+      .container label {
+        font-size: 1.3rem;
       }
 
       @media screen and (max-width: 768px) {
@@ -64,11 +74,15 @@
           font-size: 10px;
         }
         .container label {
-          font-size: 11px;
+          font-size: 15px;
         }
 
         .result {
           font-size: 10px;
+        }
+        div {
+          padding: 0;
+          margin: 0;
         }
       }
 
@@ -87,35 +101,50 @@
       .labelAge,
       .labelPrice,
       .labelCapacity {
-        display: none;
         color: white;
-        font-size: 1rem;
-        left: 25%;
+        position: relative;
+        font-size: 1.8rem;
+        left: -5%;
         font-weight: 400;
         font-family: Roboto;
         letter-spacing: 0.5px;
-        padding: 0.5rem;
+        padding: 0.6rem 0;
+        padding-top: 1.3rem;
         text-align: left;
-        width: 55vh;
+        width: 50vh;
         margin: 0 auto;
-
         @media screen and (max-width: 768px) {
           width: 40vh;
-          font-size: 12px;
+          font-size: 1rem;
+          left: 0;
         }
       }
+
+      div .labelAge,
+      div .labelPrice,
+      div .labelCapacity {
+        display: flex;
+      }
+
+      #nds{
+        display:none;
+      }
+
+.benefit{
+  display: block
+}
+
     </style>
   </head>
   <body>
     <div class="main-body">
       <form action="">
-        <div>
-          <label for="age" class="labelAge"><b>Возраст авто</b></label>
-          <input type="number" placeholder="Возраст авто" id="age" />
-        </div>
+        <label for="age" class="labelAge"><b>Возраст авто</b></label>
+        <input type="number" placeholder="Лет" id="age" />
+
         <br /><br />
-        <label for="price" class="labelPrice">Стоимость авто в €</label>
-        <input type="number" placeholder="Стоимость авто в евро" id="price" />
+        <label for="price" class="labelPrice"><b>Стоимость авто</b></label>
+        <input type="number" placeholder="В евро" id="price" />
         <br /><br />
         <div class="container">
           <input
@@ -134,17 +163,19 @@
           />
           <label for="first">Электро</label>
         </div>
-        <br /><br />
+        <br />
         <div id="container" style="display: block">
           <div class="container">
-            <input type="radio" name="second" checked value="person" />
-            <label for="second">Физ.лицо</label>
-            <input type="radio" name="second" value="entity" />
-            <label for="second">Юр.лицо</label>
+            <input type="radio" name="second" checked value="person"  onchange="handleHide(this);"/>
+            <label for="second">Физ.лицо </label>
+            <input type="radio" name="second" value="entity" onchange="handleHide(this);"/>
+            <label for="second">Юр.лицо </label>
           </div>
-          <br /><br />
-          <label for="capacity" class="labelCapacity">Объем двигателя</label>
-          <input type="number" placeholder="Объем двигателя" id="capacity" />
+
+          <label for="capacity" class="labelCapacity"
+            ><b>Объем двигателя</b></label
+          >
+          <input type="number" placeholder="См 3" id="capacity" />
           <br /><br />
           <div class="container">
             <input type="radio" name="third" checked value="petrol" />
@@ -153,12 +184,13 @@
             <label for="third">Дизель</label>
           </div>
         </div>
-        <div id="container2" style="display: none">
+        <div class='container' id="container2" style="display: none">
           <input type="checkbox" name="fifth" value="buy" checked />
           <label for="fifth">Продажа до 3 лет</label>
         </div>
-        <div class="container">
-          <input type="checkbox" name="forth" value="benefit" checked /><label
+        <br />
+        <div class="container benefit">
+          <input type="checkbox" name="forth" value="benefit" /><label
             for="forth"
             >Таможенная льгота 50%</label
           >
@@ -169,7 +201,8 @@
     </div>
     <div class="result">
       <h4>Таможенная пошлина: <span id="res"></span><span>€</span></h4>
-      <h4>Утилизационный сбор: <span id="sbor"></span><span>€</span></h4>
+      <h4>Утилизационный сбор: <span id="sbor"></span>руб.</span></h4>
+      <h4 id="nds">НДС 20% : </h4>
       <h4>Таможенный сбор: <span id="sbor">120 </span><span>руб.</span></h4>
     </div>
 
@@ -191,27 +224,6 @@
       const labelPrice = document.querySelector(".labelPrice");
       const labelCapacity = document.querySelector(".labelCapacity");
 
-      age.addEventListener("focus", () => {
-        labelAge.style.display = "block";
-      });
-      age.addEventListener("blur", () => {
-        labelAge.style.display = "none";
-      });
-
-      price.addEventListener("focus", () => {
-        labelPrice.style.display = "block";
-      });
-      price.addEventListener("blur", () => {
-        labelPrice.style.display = "none";
-      });
-
-      capacity.addEventListener("focus", () => {
-        labelCapacity.style.display = "block";
-      });
-      capacity.addEventListener("blur", () => {
-        labelCapacity.style.display = "none";
-      });
-
       function handleChange(v) {
         if (v.value === "electro") {
           container.style.display = "none";
@@ -222,7 +234,16 @@
         }
       }
 
-      for (var i = 0; i < engine.length; i++) {}
+      function handleHide(h){
+        const benefitNone= document.querySelector('.benefit');
+        if (h.value === "entity") {
+          benefitNone.style.display='none';
+        } else {
+          benefitNone.style.display='block';
+        }
+      
+      }
+
       btn.addEventListener("click", (e) => {
         e.preventDefault();
 
@@ -253,8 +274,6 @@
 
       function checkFunc(age, price, capacity, person, engine, type) {
         if (engine === "electro") {
-          let res = document.getElementById("res");
-
           if (buy.checked) {
             console.log(price);
             if (benefit.checked) {
@@ -357,6 +376,11 @@
       }
 
       function personF(age, price, capacity) {
+        const nds= document.querySelector('#nds');
+nds.style.display='none';
+const benefitNone= document.querySelector('.benefit');
+
+benefitNone.style.display='block';
         if (age < 3) {
           let res2 = price / capacity;
           if (price <= 8500) {
@@ -413,16 +437,60 @@
         }
       }
 
-      function formulaUtil(age, type) {
+      function formulaUtil(age, type, person, capacity) {
         let sbor = document.getElementById("sbor");
-        if (age < 3) {
-          sbor.innerHTML = 544.5;
-        } else if (age >= 3 && age <= 7) {
-          sbor.innerHTML = 816.7;
-        } else if (age > 7) {
-          type === "electro"
-            ? (sbor.innerHTML = 816.7)
-            : (sbor.innerHTML = 1225.1);
+        if (person === "person") {
+          if (age < 3) {
+            sbor.innerHTML = 544.5;
+          } else if (age >= 3 && age <= 7) {
+            sbor.innerHTML = 816.7;
+          } else if (age > 7) {
+            type === "electro"
+              ? (sbor.innerHTML = 816.7)
+              : (sbor.innerHTML = 1225.1);
+          }
+        } else {
+          if (capacity < 1000) {
+            if (age < 3) {
+              sbor.innerHTML = 1652.2;
+            } else if (age >= 3 && age <= 7) {
+              sbor.innerHTML = 5771.7;
+            } else if (age > 7) {
+              sbor.innerHTML = 8657.6;
+            }
+          } else if (capacity >= 1000 && capacity <= 2000) {
+            if (age < 3) {
+              sbor.innerHTML = 6115.2;
+            } else if (age >= 3 && age <= 7) {
+              sbor.innerHTML = 8995.1;
+            } else if (age > 7) {
+              sbor.innerHTML = 13492.7;
+            }
+          } else if (capacity >= 2001 && capacity <= 3000) {
+            if (age < 3) {
+              sbor.innerHTML = 9652.7;
+            } else if (age >= 3 && age <= 7) {
+              sbor.innerHTML = 17554.7;
+            } else if (age > 7) {
+              sbor.innerHTML = 26332.1;
+            }
+          } else if (capacity >= 3001 && capacity <= 3500) {
+            if (age < 3) {
+              sbor.innerHTML = 8898.6;
+            } else if (age >= 3 && age <= 7) {
+              sbor.innerHTML = 31036.5;
+            } else if (age > 7) {
+              sbor.innerHTML = 46554.8;
+            }
+          } else if (capacity >= 3501) {
+            if (age < 3) {
+              sbor.innerHTML = 15253.7;
+            } else if (age >= 3 && age <= 7) {
+              sbor.innerHTML = 38125.9;
+            } else if (age > 7) {
+              sbor.innerHTML = 57188.9;
+            }
+          }
         }
       }
 
@@ -430,9 +498,9 @@
         let res = document.getElementById("res");
         displayResults();
         if (benefit.checked) {
-          res.innerHTML = res1 / 2;
+          res.innerHTML = (res1 / 2).toFixed(2);
         } else {
-          res.innerHTML = res1;
+          res.innerHTML = res1.toFixed(2);
         }
       }
 
@@ -440,18 +508,17 @@
         let res = document.getElementById("res");
         displayResults();
         if (benefit.checked) {
-          res.innerHTML = (res2 * capacity) / 2;
+          res.innerHTML = ((res2 * capacity) / 2).toFixed(2);
         } else {
-          res.innerHTML = res2 * capacity;
+          res.innerHTML = (res2 * capacity).toFixed(2);
         }
       }
 
       function formula3(price, capacity, res2, perc, euro) {
         let res1 = (price / 100) * perc;
-        console.log(res1 / capacity, res2);
         let res3 = res1 / capacity;
         if (res3 > euro) {
-          formula2(res1);
+          formula2(res1.toFixed(2));
         } else {
           formula(capacity, euro);
         }
@@ -464,9 +531,23 @@
           return false;
         } else {
           err.style.display = "none";
+   
           checkFunc(age, price, capacity, person, engine, type);
-          formulaUtil(age, engine);
+          formulaUtil(age, engine, person, capacity);
+
+          if(person==='entity'){
+          formulaNDS(price)}
+          
         }
+      }
+
+      function formulaNDS(price){
+const nds= document.querySelector('#nds');
+let sbor = document.getElementById("res");
+nds.style.display='block';
+sborNum= Number(sbor.innerHTML);
+let num=(Number(price)+sborNum)*0.2;
+nds.innerHTML= `НДС 20% : ${num.toFixed(2)}руб.`;
       }
 
       function displayResults() {
@@ -475,4 +556,4 @@
       }
     </script>
   </body>
-</html>
+  </html>
